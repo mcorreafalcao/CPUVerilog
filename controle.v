@@ -1,16 +1,16 @@
-
-initial begin
-  assign Q = 4'd0;//estado inicial, só fará algo a partir do proximo estado
-end
-
 module CONTROLE(Q,tx,ty,tz,tula,clock); //maquina de estado
+  
   parameter CLEAR = 4'd0;
   parameter LOAD = 4'd1;
   parameter HOLD = 4'd2;
   parameter SHIFTR = 4'd3;
-  input clock;
-  input reg [3:0] Q;
-  output reg [3:0] tx,ty,tz,tula;
+
+  input wire clock;
+  output reg [3:0] Q,tx,ty,tz,tula;
+  
+  initial begin
+	Q <= 4'd0;//estado inicial, só fará algo a partir do proximo estado
+  end
   
   always @ (posedge clock) begin
     case(Q) 
@@ -20,7 +20,7 @@ module CONTROLE(Q,tx,ty,tz,tula,clock); //maquina de estado
               tx<=LOAD;
               ty<=CLEAR;
               tz<=CLEAR;
-              tula<=4'd0;
+              
           end
     4'd1 : begin
               Q <= 4'd2;//2o estado util
@@ -28,7 +28,7 @@ module CONTROLE(Q,tx,ty,tz,tula,clock); //maquina de estado
               tx<=LOAD;
               ty<=LOAD;
               tz<=CLEAR;
-              tula<=4'd0;
+              
           end 
     4'd2 : begin
               Q <= 4'd3;//3o estado util
@@ -36,7 +36,7 @@ module CONTROLE(Q,tx,ty,tz,tula,clock); //maquina de estado
               tx<=CLEAR;
               ty<=LOAD;
               tz<=CLEAR;
-              tula<=4'd0;
+              
           end 
     4'd3 : begin
             Q <= 4'd4;//4o estado util
@@ -44,7 +44,7 @@ module CONTROLE(Q,tx,ty,tz,tula,clock); //maquina de estado
             tx<=CLEAR;
             ty<=SHIFTR;
             tz<=CLEAR;
-            tula<=4'd0;
+            
           end 
     4'd4 : begin
             Q <= 4'd5;//5o estado util
@@ -52,7 +52,7 @@ module CONTROLE(Q,tx,ty,tz,tula,clock); //maquina de estado
             tx<=CLEAR;
             ty<=CLEAR;
             tz<=LOAD;
-            tula<=4'd0;
+            
           end 
     4'd5 : begin
             Q <= 4'd1;//volta pro primeiro 1o estado util(recomeça tudo)
@@ -60,8 +60,10 @@ module CONTROLE(Q,tx,ty,tz,tula,clock); //maquina de estado
             tx<=LOAD;
             ty<=LOAD;
             tz<=CLEAR;
-            tula<=4'd0;
+            
           end 
-    
+    endcase
+    tula<=4'd0;//Ula sempre vai somar independente do estado de Q
+  end//end always
 
 endmodule
