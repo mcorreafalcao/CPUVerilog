@@ -7,7 +7,7 @@ module registrador(in, clock, S, out);
 
 	parameter
 
-	HOLD = 4'b0000, LOAD = 4'b0001, CLEAR = 4'b0010, SHIFT = 4'b0011;
+	HOLD = 4'd1, LOAD = 4'd2, CLEAR = 4'd3, SHIFT = 4'd4;
 
 	always @ (posedge clock)
 
