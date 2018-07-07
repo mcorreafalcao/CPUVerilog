@@ -1,9 +1,9 @@
 module memoria(clock, address, In, Out, S);
 
 	input S, clock;
-    input [3:0] In;
+	input [3:0] In;
 	input [3:0] address;
-    output reg [3:0] Out;
+	output reg [3:0] Out;
     
     reg [7:0] memoria [28:0];
     
